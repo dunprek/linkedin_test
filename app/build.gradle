@@ -2,6 +2,17 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
     defaultConfig {
         applicationId "com.don.linkedin_test"
         minSdkVersion 21
@@ -9,11 +20,23 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            buildConfigField "String", "CLIENT_ID", "\"81w4vjx68dhplv\""
+            buildConfigField "String", "CLIENT_SECRET", "\"rTmigBbndYVWbf5t\""
+            buildConfigField "String", "REDIRECT_URL", "\"https://deskqoe.id/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.linkedin.com/\""
+        }
+        debug {
+            buildConfigField "String", "CLIENT_ID", "\"81w4vjx68dhplv\""
+            buildConfigField "String", "CLIENT_SECRET", "\"rTmigBbndYVWbf5t\""
+            buildConfigField "String", "REDIRECT_URL", "\"https://deskqoe.id/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.linkedin.com/\""
+
         }
     }
 }
@@ -25,4 +48,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.7'
+
+
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
 }
